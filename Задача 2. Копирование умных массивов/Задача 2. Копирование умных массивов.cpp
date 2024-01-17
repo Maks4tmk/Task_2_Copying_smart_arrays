@@ -21,7 +21,7 @@ public:
 	}
 
 	int get_element(int index) {
-		if (index < 0 || !(index < size)) {
+		if (index < 0 || !(index < count)) {
 			throw std::out_of_range("Индекс находится за пределами массива!");
 		}
 		else { return arr[index]; }
@@ -45,18 +45,19 @@ public:
 	}
 
 	smart_array & operator = (smart_array & other) {
-		this->size = other.size;
-		this->count = other.count;
+		if (this != &other) {
+			this->size = other.size;
+			this->count = other.count;
 
-		delete[] this->arr;
+			delete[] this->arr;
 
-		this->arr = new int[size];
-		for (int i = 0; i < size; i++) {
-			this->arr[i] = other.arr[i];
+			this->arr = new int[size];
+			for (int i = 0; i < size; i++) {
+				this->arr[i] = other.arr[i];
+			}
+			return *this;
 		}
-
 		return *this;
-
 	}
 
 private:
